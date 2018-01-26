@@ -67,32 +67,36 @@
 
     return sp;
 }
-
+//
 - (NSMenuItem *) newMenuItemWithTitle:(NSString *)title action:(SEL)action andKeyEquivalent:(NSString *)keyEquivalent inMenu:(NSMenu *)menu withTitle:(NSString*)searchTitle offset:(int)offset
 // Taken from /System/Developer/Examples/EnterpriseObjects/AppKit/ModelerBundle/EOUtil.m
 {
 	// Simple utility category which adds a new menu item with title, action
 	// and keyEquivalent to menu (or one of its submenus) under that item with
-	// selector as its action.  Returns the new addition or nil if no such 
+	// selector as its action.  Returns the new addition or nil if no such
 	// item could be found.
-	
+
     NSMenuItem  *menuItem;
     NSArray     *items = [menu itemArray];
     int         iI;
-	
+
     if(!keyEquivalent) {
         keyEquivalent = @"";
     }
-	
+
     for (iI = 0; iI < [items count]; iI++) {
         menuItem = [items objectAtIndex:iI];
 
         if ([[menuItem title] isEqualToString:searchTitle]) {
+            NSLog(@"GMailinator menuId: %i", [menuItem tag]);
             return ([menu insertItemWithTitle:title action:action keyEquivalent:keyEquivalent atIndex:iI + offset]);
         }
         else if([[menuItem target] isKindOfClass:[NSMenu class]]) {
             menuItem = [self newMenuItemWithTitle:title action:action andKeyEquivalent:keyEquivalent inMenu:[menuItem target] withTitle:searchTitle offset:offset];
-            if (menuItem) return menuItem;
+            if (menuItem){
+                NSLog(@"GMailinator menuId or: %i", [menuItem tag]);
+                return menuItem;
+            }
         }
     }
 
@@ -104,7 +108,7 @@
     // create "Move to Folder..." menu item just below the existing "Move Again" menuitem
     NSMenuItem* moveFolderItem =  [self newMenuItemWithTitle: @"Move to Folder..."
                                                       action: @selector(moveToFolder:)
-                                            andKeyEquivalent: @"l"
+                                            andKeyEquivalent: @"."
                                                       inMenu: [[NSApplication sharedApplication] mainMenu]
                                                    withTitle: @"Move Again"
                                                       offset: 1];
