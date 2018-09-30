@@ -23,7 +23,7 @@
 		239B1F2217B6FD16002CEA1B /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "~/Library/Mail/Bundles";
+			dstPath = "$(HOME)/Library/Mail/Bundles";
 			dstSubfolderSpec = 0;
 			files = (
 				239B1F2317B6FD2F002CEA1B /* GMailinator.mailbundle in CopyFiles */,
